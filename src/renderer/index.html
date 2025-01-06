@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html class="h-full bg-gray-50">
+    <head>
+        <title>Pico Search</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <style>
+        /* Markdown styling */
+        #result h1 { font-size: 1.875rem; line-height: 2.25rem; font-weight: 700; margin-bottom: 1rem; margin-top: 1.5rem; }
+        #result h2 { font-size: 1.5rem; line-height: 2rem; font-weight: 600; margin-bottom: 0.75rem; margin-top: 1.25rem; }
+        #result h3 { font-size: 1.25rem; line-height: 1.75rem; font-weight: 600; margin-bottom: 0.5rem; margin-top: 1rem; }
+        #result p { margin-bottom: 1rem; line-height: 1.625; }
+        #result ul { list-style-type: disc; padding-left: 1.25rem; margin-bottom: 1rem; }
+        #result ol { list-style-type: decimal; padding-left: 1.25rem; margin-bottom: 1rem; }
+        #result a { color: #2563eb; text-decoration: underline; }
+        #result a:hover { color: #1e40af; }
+        #result blockquote { border-left-width: 4px; border-color: #d1d5db; padding-left: 1rem; font-style: italic; margin: 1rem 0; }
+        #result code { background-color: #f3f4f6; border-radius: 0.25rem; padding: 0.125rem 0.25rem; }
+        #result pre { background-color: #f3f4f6; border-radius: 0.25rem; padding: 1rem; margin-bottom: 1rem; overflow-x: auto; }
+        </style>
+    </head>
+    <body class="h-full">
+        <div class="min-h-full">
+            <header class="bg-white shadow fixed top-0 left-0 right-0 z-10">
+                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Pico Search</h1>
+                </div>
+                <div class="px-4 py-6 sm:px-0 mx-4">
+                    <div class="flex gap-4 mb-6">
+                        <input
+                            type="text"
+                            id="searchInput"
+                            placeholder="Enter your search query..."
+                            autofocus
+                            class="block w-full rounded-md border-0 py-3 pl-4 pr-4 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                        >
+                        <button id="searchButton" class="rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
+                            Search
+                        </button>
+                        <button id="cancelButton" style="display: none;" class="rounded-md bg-red-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
+                            Cancel
+                        </button>
+                    </div>
+                </header>
+                <main class="pt-40">
+                    <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8 my-4">
+                        <div id="loading" style="display: none;" class="text-sm text-gray-500 italic mb-4">
+                            Searching...
+                        </div>
+                        <div id="result" style="display: none;" class="rounded-lg bg-white px-6 py-5 shadow prose prose-blue max-w-none"></div>
+                    </div>
+                </main>
+            </div>
+            <script src="renderer.js"></script>
+        </body>
+    </html>

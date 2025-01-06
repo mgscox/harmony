@@ -7,7 +7,7 @@ class ConfigService {
         config({override: false})
     }
     get(key: string) {
-        return process.env[key];
+        return `${process.env[key]}`;
     }
 }
 
