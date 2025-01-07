@@ -13,11 +13,11 @@ class LlmService extends EventEmitter {
     init() {
         const modelDir = resolve( join(configService.__rootDir, 'models', configService.get("PCIO_MODEL")) );
         console.log(`Loading model from ${modelDir}`);
-        this.picoLLM = this.picoLLM ||new PicoLLM(
+        this.picoLLM = this.picoLLM || new PicoLLM(
             configService.get("PCIO_API_KEY"),
             modelDir,
             {
-              device: 'best'
+                device: 'best',
             }
         );
         this.dialog = this.dialog || this.picoLLM.getDialog(
