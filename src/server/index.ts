@@ -1,5 +1,8 @@
 import { llmService } from "./sercices/llm.service";
 import { searchService } from "./sercices/search.service";
+import { console } from "./sercices/console.service";
+import { configService } from "./sercices/config.service";
+
 
 export async function parseQuery(query: string): Promise<string> {
     const rephrased = await llmService.rephrase(query);
@@ -49,3 +52,16 @@ console.log(searchPrompt);
     }
     return "No results found.";
 }
+
+
+(async () => {
+    if (configService.get("SYSTEM") === 'win32') {
+        try {
+            await configService.installVC();
+        } 
+        catch (e: any) {
+            console.error('Failed to install Visual C++ Redistributable.', e);
+        }
+    }
+    await llmService.init();
+})();

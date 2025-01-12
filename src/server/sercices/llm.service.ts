@@ -2,29 +2,38 @@ import { Dialog, PicoLLM } from "@picovoice/picollm-node";
 import { configService } from "./config.service";
 import { join, resolve } from "node:path";
 import { EventEmitter } from "node:stream";
+import fs, { existsSync } from "node:fs";
+import { console } from "./console.service";
 
 class LlmService extends EventEmitter {
     picoLLM!: PicoLLM;
     private dialog!: Dialog;
     constructor() {
         super();
-        this.init();
     }
     init() {
         const modelDir = resolve( join(configService.__rootDir, 'models', configService.get("PCIO_MODEL")) );
         console.log(`Loading model from ${modelDir}`);
-        this.picoLLM = this.picoLLM || new PicoLLM(
-            configService.get("PCIO_API_KEY"),
-            modelDir,
-            {
-                device: 'best',
-            }
-        );
-        this.dialog = this.dialog || this.picoLLM.getDialog(
-            undefined, 
-            10, 
-            'Your are a helpful assistant who is creative, clever, and very friendly.'
-        );
+        
+        try {
+            this.picoLLM = this.picoLLM || new PicoLLM(
+                configService.get("PCIO_API_KEY"),
+                modelDir,
+                {
+                    device: 'best',
+                }
+            );
+            this.dialog = this.dialog || this.picoLLM.getDialog(
+                undefined, 
+                10, 
+                'Your are a helpful assistant who is creative, clever, and very friendly.'
+            );
+        } 
+        catch (error) {
+            console.panic(`Error loading model from ${modelDir}:`, error);
+            process.exit(1);
+        }
+
     }
     async rephrase(phrase: string) {
         const query = `

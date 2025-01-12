@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import EventEmitter from 'node:events';
+import { console } from "./console.service";
 
 const searchUrl = `https://html.duckduckgo.com/html/?q={query}`;
 
